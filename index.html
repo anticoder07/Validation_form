@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./main.css" />
+    <link rel="icon" href="./login-logo.jpg" />
+  </head>
+  <body>
+    <div class="main">
+      <form action="" method="post" class="form block" id="form-1">
+        <h3 class="heading">Đăng Kí Thành Viên</h3>
+        <p class="desc">Đăng kí để được nhận kẹo 🍭</p>
+        <div class="spacer"></div>
+
+        <div class="form-group">
+          <label for="fullname" class="form-label">Tên Đăng Nhập</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullname"
+            name="fullname"
+            placeholder="VD: Cao Bá Hướng"
+            rule="isRequired"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail" class="form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="userEmail"
+            name="userEmail"
+            placeholder="VD: caobahuong@gmail.com"
+            rule="isRequired|isGmail"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Nhập mật khẩu"
+            rule="isRequired|min:6|max:20"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password_confirmation" class="form-label"
+            >Nhập lại mật khẩu</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="password_confirmation"
+            name="password_confirmation"
+            placeholder="Nhập lại mật khẩu"
+            rule="isRequired|min:6|max:20|isConfirmed"
+          />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group"></div>
+
+        <button class="form-submit button-89">Đăng Ký</button>
+      </form>
+    </div>
+    <!-- <script src="./validator.js"></script> -->
+    <script src="./main.js"></script>
+    <script>
+      // validator({
+      //   form: "#form-1",
+      //   formGroupSelector: ".form-group",
+      // });
+      const min = 6,
+        max = 10;
+      Validator({
+        form: "#form-1",
+        formGroupSelector: ".form-group",
+        rules: [
+          Validator.isRequired("#fullname", "Vui lòng nhập tên đầy đủ của bạn"),
+
+          Validator.isRequired("#userEmail", "Vui lòng nhập email của bạn"),
+          Validator.isEmail("#userEmail"),
+
+          Validator.isRequired("#password", "Vui lòng nhập mật khẩu"),
+          Validator.rangeLength("#password", min, max),
+
+          Validator.isRequired(
+            "#password_confirmation",
+            "Vui lòng nhập lại mật khẩu"
+          ),
+
+          Validator.isConfirmed("#password_confirmation", function () {
+            return document.querySelector("#form-1 #password").value;
+          }),
+        ],
+        onSubmit: function (data) {
+          console.log(data);
+        },
+      });
+    </script>
+  </body>
+</html>
